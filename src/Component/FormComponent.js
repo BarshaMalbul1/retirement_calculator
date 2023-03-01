@@ -10,13 +10,13 @@ import CalulationScript from '../Helper/CalulationScript';
 
 function FormComponent()
 {
-    const [currentAge,setCurrentAge] = useState();
-    const [retirementAge,setRetirementAge] = useState();
-    const [currentSavings,setCurrentSavings] = useState();
-    const [expectedROR,setExpectedROR] = useState();
-    const [estimatedRE,setEstimatedRE] = useState();
-    const [retirementSR,setRetirementSR] = useState();
-    const [clientName,setClientName] = useState();
+    const [currentAgeState,setCurrentAge] = useState();
+    const [retirementAgeState,setRetirementAge] = useState();
+    const [currentSavingsState,setCurrentSavings] = useState();
+    const [expectedRORState,setExpectedROR] = useState();
+    const [estimatedREState,setEstimatedRE] = useState();
+    const [retirementSRState,setRetirementSR] = useState();
+    const [clientNameState,setClientName] = useState();
 
     const validationSchema = yup.object({
         currentAge: yup
@@ -46,7 +46,7 @@ function FormComponent()
             'ERROR: Enter a valid current savings', 
             (value) => value > 0
             ),
-          expectedRateOfReturn: yup
+            expectedROR: yup
           .number('Enter a valid expected rate of return')
           .integer("Expected rate of return is required")
           .test(
@@ -55,14 +55,14 @@ function FormComponent()
             (value) => value > 0
             )
           .required('Expected rate of return is required'),
-          estimatedRetirementExpenses: yup
+          estimatedRE: yup
           .number('Enter a valid estimated retirement expenses')
           .test(
             'Is positive?', 
             'ERROR: Enter a valid estimated retirement expenses', 
             (value) => value >= 0
             ),
-          retirementSavingsRequired: yup
+            retirementSR: yup
           .number('Enter a valid retirement savings required')
           .test(
             'Is positive?',
@@ -76,68 +76,74 @@ function FormComponent()
           currentAge:25,
           retirementAge: 75,
           currentSavings: 1000,
-          expectedRateOfReturn: 6,
-          estimatedRetirementExpenses: 0,
-          retirementSavingsRequired: 0,
+          expectedROR: 6,
+          estimatedRE: 5,
+          retirementSR: 10000,
           clientName:'',
         },
         validationSchema:validationSchema,
         onSubmit: (values) => {
-          Alert("sss")
-          setCurrentAge(values.currentAge)
-          setRetirementAge(values.retirementAge)
-          setCurrentSavings(values.currentSavings)
-          setExpectedROR(values.expectedRateOfReturn)
-          setEstimatedRE(values.estimatedRetirementExpenses)
-          setRetirementSR(values.retirementSavingsRequired)
-          setClientName(values.clientName)
+          console.log(values)
+          // setCurrentAge(values.currentAge)
+          // setRetirementAge(values.retirementAge)
+          // setCurrentSavings(values.currentSavings)
+          // setExpectedROR(values.expectedRateOfReturn)
+          // setEstimatedRE(values.estimatedRetirementExpenses)
+          // setRetirementSR(values.retirementSavingsRequired)
+          // setClientName(values.clientName)
         }});    
 
         const handleSliderChange = (event, newValue) => {
             switch(event.target.childNodes[0].name){
               case "currentAgeSlider":
                     setCurrentAge(newValue);
+                    formik.values.currentAge= newValue;
                     break;
                 case "retirementAgeSlider":
                     setRetirementAge(newValue);
+                    formik.values.retirementAge= newValue;
                     break;
                 case "currentSavingsSlider":
                     setCurrentSavings(newValue);
+                    formik.values.currentSavings= newValue;
                     break;
                 case "expectedRORSlider":
                   setExpectedROR(newValue);
+                  formik.values.expectedROR= newValue;
                   break;
                 case "estimatedRESlider":
                   setEstimatedRE(newValue);
+                  formik.values.estimatedRE= newValue;
                   break;
                 case "retirementSRSlider":
                   setRetirementSR(newValue);
+                  formik.values.retirementSR= newValue;
                   break;   
             }
         };
         
         const updateSlider = (event)=> {
-            switch(event.target.name)
-            {
-              case "currentAge":
-                    setCurrentAge(event.target.value);
-                    break;
-                case "retirementAge":
-                    setRetirementAge(event.target.value);
-                    break;
-                    case "currentSavings":
-                      setCurrentSavings(event.target.value);
-                      break;
-                  case "expectedROR":
-                    setExpectedROR(event.target.value);
-                    break;
-                  case "estimatedRE":
-                    setEstimatedRE(event.target.value);
-                    break;
-                  case "retirementSR":
-                    setRetirementSR(event.target.value);
-                    break;  
-            }
+            // switch(event.target.name)
+            // {
+            //   case "currentAge":
+            //         setCurrentAge(event.target.value);
+            //         break;
+            //     case "retirementAge":
+            //         setRetirementAge(event.target.value);
+            //         break;
+            //         case "currentSavings":
+            //           setCurrentSavings(event.target.value);
+            //           break;
+            //       case "expectedROR":
+            //         setExpectedROR(event.target.value);
+            //         break;
+            //       case "estimatedRE":
+            //         setEstimatedRE(event.target.value);
+            //         break;
+            //       case "retirementSR":
+            //         setRetirementSR(event.target.value);
+            //         break;  
+            // }
         };
 
     return (
@@ -159,8 +165,8 @@ function FormComponent()
                   id="currentAge"
                   name="currentAge"
                   label="Current Age"
-                  value={currentAge}
-                  onChange={updateSlider}
+                  value={formik.values.currentAge}
+                  onChange={formik.handleChange}
                   InputLabelProps={{
                       shrink: true,
                     }} 
@@ -172,7 +178,7 @@ function FormComponent()
                 </Grid>
                 <Grid item xs={6}>
                 <Slider
-                  value={currentAge}
+                  value={currentAgeState}
                   name="currentAgeSlider"
                   valueLabelDisplay="auto"
                   step={1}
@@ -188,8 +194,8 @@ function FormComponent()
                   id="retirementAge"
                   name="retirementAge"
                   label="Retirement Age"
-                  value={retirementAge}
-                  onChange={updateSlider}
+                  value={formik.values.retirementAge}
+                  onChange={formik.handleChange}
                   InputLabelProps={{
                       shrink: true,
                     }}             
@@ -197,7 +203,7 @@ function FormComponent()
                 </Grid>
                 <Grid item xs={6}>
                 <Slider
-                  value={retirementAge}
+                  value={retirementAgeState}
                   name="retirementAgeSlider"
                   valueLabelDisplay="auto"
                   step={1}
@@ -213,8 +219,8 @@ function FormComponent()
                   id="currentSavings"
                   name="currentSavings"
                   label="Current Savings"
-                  value={currentSavings}
-                  onChange={updateSlider}
+                  value={formik.values.currentSavings}
+                  onChange={formik.handleChange}
                   InputLabelProps={{
                       shrink: true,
                     }}             
@@ -222,7 +228,7 @@ function FormComponent()
                 </Grid>
                 <Grid item xs={6}>
                 <Slider
-                  value={currentSavings}
+                  value={currentSavingsState}
                   name="currentSavingsSlider"
                   valueLabelDisplay="auto"
                   step={1}
@@ -238,8 +244,8 @@ function FormComponent()
                   id="expectedROR"
                   name="expectedROR"
                   label="Expected Rate Of Return"
-                  value={expectedROR}
-                  onChange={updateSlider}
+                  value={formik.values.expectedROR}
+                  onChange={formik.handleChange}
                   InputLabelProps={{
                       shrink: true,
                     }}             
@@ -247,7 +253,7 @@ function FormComponent()
                 </Grid>
                 <Grid item xs={6}>
                 <Slider
-                  value={expectedROR}
+                  value={expectedRORState}
                   name="expectedRORSlider"
                   valueLabelDisplay="auto"
                   step={1}
@@ -264,8 +270,8 @@ function FormComponent()
                   id="estimatedRE"
                   name="estimatedRE"
                   label="Estimated Retirement Expenses"
-                  value={estimatedRE}
-                  onChange={updateSlider}
+                  value={formik.values.estimatedRE}
+                  onChange={formik.handleChange}
                   InputLabelProps={{
                       shrink: true,
                     }}             
@@ -273,7 +279,7 @@ function FormComponent()
                 </Grid>
                 <Grid item xs={6}>
                 <Slider
-                  value={estimatedRE}
+                  value={estimatedREState}
                   name="estimatedRESlider"
                   valueLabelDisplay="auto"
                   step={1}
@@ -290,8 +296,8 @@ function FormComponent()
                   id="retirementSR"
                   name="retirementSR"
                   label="Retirement Savings Required"
-                  value={retirementSR}
-                  onChange={updateSlider}
+                  value={formik.values.retirementSR}
+                  onChange={formik.handleChange}
                   InputLabelProps={{
                       shrink: true,
                     }}             
@@ -299,7 +305,7 @@ function FormComponent()
                 </Grid>
                 <Grid item xs={6}>
                 <Slider
-                  value={retirementSR}
+                  value={retirementSRState}
                   name="retirementSRSlider"
                   valueLabelDisplay="auto"
                   step={1}
