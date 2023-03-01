@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import TextField from '@material-ui/core/TextField';
-import { Slider } from '@mui/material';
+import { Alert, Slider } from '@mui/material';
+import {Grid} from '@mui/material';
+import {Container} from '@mui/material';
+import {Button} from '@mui/material';
+import CalulationScript from '../Helper/CalulationScript';
 
 function FormComponent()
 {
@@ -79,6 +83,7 @@ function FormComponent()
         },
         validationSchema:validationSchema,
         onSubmit: (values) => {
+          Alert("sss")
           setCurrentAge(values.currentAge)
           setRetirementAge(values.retirementAge)
           setCurrentSavings(values.currentSavings)
@@ -90,56 +95,224 @@ function FormComponent()
 
         const handleSliderChange = (event, newValue) => {
             switch(event.target.childNodes[0].name){
+              case "currentAgeSlider":
+                    setCurrentAge(newValue);
+                    break;
                 case "retirementAgeSlider":
                     setRetirementAge(newValue);
                     break;
+                case "currentSavingsSlider":
+                    setCurrentSavings(newValue);
+                    break;
+                case "expectedRORSlider":
+                  setExpectedROR(newValue);
+                  break;
+                case "estimatedRESlider":
+                  setEstimatedRE(newValue);
+                  break;
+                case "retirementSRSlider":
+                  setRetirementSR(newValue);
+                  break;   
             }
         };
         
         const updateSlider = (event)=> {
             switch(event.target.name)
             {
+              case "currentAge":
+                    setCurrentAge(event.target.value);
+                    break;
                 case "retirementAge":
                     setRetirementAge(event.target.value);
                     break;
+                    case "currentSavings":
+                      setCurrentSavings(event.target.value);
+                      break;
+                  case "expectedROR":
+                    setExpectedROR(event.target.value);
+                    break;
+                  case "estimatedRE":
+                    setEstimatedRE(event.target.value);
+                    break;
+                  case "retirementSR":
+                    setRetirementSR(event.target.value);
+                    break;  
             }
         };
 
     return (
         <div>
-            <h1>{retirementAge}</h1>
-            <form>
-                <TextField
-                    fullWidth
-                    id="clientName"
-                    name="clientName"
-                    label="Enter Your Name"
-                    helperText={formik.touched.clientName && formik.errors.clientName}
-                    />
+          <Container>
+            <form onSubmit={formik.handleSubmit}>
+              <TextField
+                fullWidth
+                id="clientName"
+                name="clientName"
+                label="Enter Your Name"
+                helperText={formik.touched.clientName && formik.errors.clientName}
+              />
 
+              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, m:5}}>
+                <Grid item xs={6}>
                 <TextField
-                    fullWidth
-                    id="retirementAge"
-                    name="retirementAge"
-                    label="Retirement Age"
-                    value={retirementAge}
-                    onChange={updateSlider}
-                    InputLabelProps={{
-                        shrink: true,
-                      }}             
-                    />
-            </form>
+                  fullWidth
+                  id="currentAge"
+                  name="currentAge"
+                  label="Current Age"
+                  value={currentAge}
+                  onChange={updateSlider}
+                  InputLabelProps={{
+                      shrink: true,
+                    }} 
+                  error={formik.touched.currentAge && Boolean(formik.errors.currentAge)}
+                  helperText={formik.touched.currentAge && formik.errors.currentAge}
 
-            <Slider
-              value={retirementAge}
-              name="retirementAgeSlider"
-              valueLabelDisplay="auto"
-              step={1}
-              marks
-              min={20}
-              max={100}
-              onChangeCommitted={handleSliderChange}
-            /> 
+              
+                />
+                </Grid>
+                <Grid item xs={6}>
+                <Slider
+                  value={currentAge}
+                  name="currentAgeSlider"
+                  valueLabelDisplay="auto"
+                  step={1}
+                  marks
+                  min={20}
+                  max={100}
+                  onChangeCommitted={handleSliderChange}
+                />
+                </Grid>
+                <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  id="retirementAge"
+                  name="retirementAge"
+                  label="Retirement Age"
+                  value={retirementAge}
+                  onChange={updateSlider}
+                  InputLabelProps={{
+                      shrink: true,
+                    }}             
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                <Slider
+                  value={retirementAge}
+                  name="retirementAgeSlider"
+                  valueLabelDisplay="auto"
+                  step={1}
+                  marks
+                  min={20}
+                  max={100}
+                  onChangeCommitted={handleSliderChange}
+                /> 
+                </Grid>
+                <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  id="currentSavings"
+                  name="currentSavings"
+                  label="Current Savings"
+                  value={currentSavings}
+                  onChange={updateSlider}
+                  InputLabelProps={{
+                      shrink: true,
+                    }}             
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                <Slider
+                  value={currentSavings}
+                  name="currentSavingsSlider"
+                  valueLabelDisplay="auto"
+                  step={1}
+                  marks
+                  min={20}
+                  max={100}
+                  onChangeCommitted={handleSliderChange}
+                /> 
+                </Grid>
+                <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  id="expectedROR"
+                  name="expectedROR"
+                  label="Expected Rate Of Return"
+                  value={expectedROR}
+                  onChange={updateSlider}
+                  InputLabelProps={{
+                      shrink: true,
+                    }}             
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                <Slider
+                  value={expectedROR}
+                  name="expectedRORSlider"
+                  valueLabelDisplay="auto"
+                  step={1}
+                  marks
+                  min={20}
+                  max={100}
+                  onChangeCommitted={handleSliderChange}
+                /> 
+                </Grid>
+            
+                <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  id="estimatedRE"
+                  name="estimatedRE"
+                  label="Estimated Retirement Expenses"
+                  value={estimatedRE}
+                  onChange={updateSlider}
+                  InputLabelProps={{
+                      shrink: true,
+                    }}             
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                <Slider
+                  value={estimatedRE}
+                  name="estimatedRESlider"
+                  valueLabelDisplay="auto"
+                  step={1}
+                  marks
+                  min={20}
+                  max={100}
+                  onChangeCommitted={handleSliderChange}
+                /> 
+                </Grid>
+              
+                <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  id="retirementSR"
+                  name="retirementSR"
+                  label="Retirement Savings Required"
+                  value={retirementSR}
+                  onChange={updateSlider}
+                  InputLabelProps={{
+                      shrink: true,
+                    }}             
+                />
+                </Grid>
+                <Grid item xs={6}>
+                <Slider
+                  value={retirementSR}
+                  name="retirementSRSlider"
+                  valueLabelDisplay="auto"
+                  step={1}
+                  marks
+                  min={20}
+                  max={100}
+                  onChangeCommitted={handleSliderChange}
+                /> 
+                </Grid>
+              </Grid>  
+              <Button color="primary" margin="2px" variant="contained" fullWidth type="submit">Calculate</Button>
+            </form>  
+          </Container>
         </div>
     )
 }
