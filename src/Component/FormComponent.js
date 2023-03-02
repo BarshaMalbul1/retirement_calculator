@@ -8,14 +8,14 @@ import {Container} from '@mui/material';
 import {Button} from '@mui/material';
 import CalulationScript from '../Helper/CalulationScript';
 
-function FormComponent()
+function FormComponent(setFormData)
 {
-    const [currentAgeState,setCurrentAge] = useState();
-    const [retirementAgeState,setRetirementAge] = useState();
-    const [currentSavingsState,setCurrentSavings] = useState();
-    const [expectedRORState,setExpectedROR] = useState();
-    const [estimatedREState,setEstimatedRE] = useState();
-    const [retirementSRState,setRetirementSR] = useState();
+    const [currentAgeState,setCurrentAge] = useState(25);
+    const [retirementAgeState,setRetirementAge] = useState(75);
+    const [currentSavingsState,setCurrentSavings] = useState(1000);
+    const [expectedRORState,setExpectedROR] = useState(6);
+    const [estimatedREState,setEstimatedRE] = useState(500);
+    const [retirementSRState,setRetirementSR] = useState(500);
     const [clientNameState,setClientName] = useState();
 
     const validationSchema = yup.object({
@@ -77,20 +77,20 @@ function FormComponent()
           retirementAge: 75,
           currentSavings: 1000,
           expectedROR: 6,
-          estimatedRE: 5,
-          retirementSR: 10000,
+          estimatedRE: 500,
+          retirementSR: 500,
           clientName:'',
         },
         validationSchema:validationSchema,
         onSubmit: (values) => {
-          console.log(values)
-          // setCurrentAge(values.currentAge)
-          // setRetirementAge(values.retirementAge)
-          // setCurrentSavings(values.currentSavings)
-          // setExpectedROR(values.expectedRateOfReturn)
-          // setEstimatedRE(values.estimatedRetirementExpenses)
-          // setRetirementSR(values.retirementSavingsRequired)
-          // setClientName(values.clientName)
+          setFormData(values);
+          setCurrentAge(values.currentAge)
+          setRetirementAge(values.retirementAge)
+          setCurrentSavings(values.currentSavings)
+          setExpectedROR(values.expectedRateOfReturn)
+          setEstimatedRE(values.estimatedRetirementExpenses)
+          setRetirementSR(values.retirementSavingsRequired)
+          setClientName(values.clientName)
         }});    
 
         const handleSliderChange = (event, newValue) => {
@@ -172,8 +172,6 @@ function FormComponent()
                     }} 
                   error={formik.touched.currentAge && Boolean(formik.errors.currentAge)}
                   helperText={formik.touched.currentAge && formik.errors.currentAge}
-
-              
                 />
                 </Grid>
                 <Grid item xs={6}>
@@ -183,7 +181,7 @@ function FormComponent()
                   valueLabelDisplay="auto"
                   step={1}
                   marks
-                  min={20}
+                  min={15}
                   max={100}
                   onChangeCommitted={handleSliderChange}
                 />
@@ -208,7 +206,7 @@ function FormComponent()
                   valueLabelDisplay="auto"
                   step={1}
                   marks
-                  min={20}
+                  min={21}
                   max={100}
                   onChangeCommitted={handleSliderChange}
                 /> 
@@ -231,10 +229,10 @@ function FormComponent()
                   value={currentSavingsState}
                   name="currentSavingsSlider"
                   valueLabelDisplay="auto"
-                  step={1}
+                  step={500}
                   marks
-                  min={20}
-                  max={100}
+                  min={0}
+                  max={100000}
                   onChangeCommitted={handleSliderChange}
                 /> 
                 </Grid>
@@ -258,7 +256,7 @@ function FormComponent()
                   valueLabelDisplay="auto"
                   step={1}
                   marks
-                  min={20}
+                  min={0}
                   max={100}
                   onChangeCommitted={handleSliderChange}
                 /> 
@@ -282,10 +280,10 @@ function FormComponent()
                   value={estimatedREState}
                   name="estimatedRESlider"
                   valueLabelDisplay="auto"
-                  step={1}
+                  step={500}
                   marks
-                  min={20}
-                  max={100}
+                  min={500}
+                  max={100000}
                   onChangeCommitted={handleSliderChange}
                 /> 
                 </Grid>
@@ -308,14 +306,15 @@ function FormComponent()
                   value={retirementSRState}
                   name="retirementSRSlider"
                   valueLabelDisplay="auto"
-                  step={1}
+                  step={500}
                   marks
-                  min={20}
-                  max={100}
+                  min={500}
+                  max={100000}
                   onChangeCommitted={handleSliderChange}
                 /> 
                 </Grid>
               </Grid>  
+              <br></br>
               <Button color="primary" margin="2px" variant="contained" fullWidth type="submit">Calculate</Button>
             </form>  
           </Container>
