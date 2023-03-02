@@ -7,6 +7,7 @@ import {Grid} from '@mui/material';
 import {Container} from '@mui/material';
 import {Button} from '@mui/material';
 import CalulationScript from '../Helper/CalulationScript';
+import { ConstructionTwoTone } from '@mui/icons-material';
 
 function FormComponent({setFormData})
 {
@@ -14,9 +15,11 @@ function FormComponent({setFormData})
     const [retirementAgeState,setRetirementAge] = useState(75);
     const [currentSavingsState,setCurrentSavings] = useState(1000);
     const [expectedRORState,setExpectedROR] = useState(6);
-    const [estimatedREState,setEstimatedRE] = useState(500);
-    const [retirementSRState,setRetirementSR] = useState(500);
+    const [estimatedREState,setEstimatedRE] = useState(50);
+    const [retirementSRState,setRetirementSR] = useState(50);
+    const [annualHouseholdIncomeState,setAnnualHouseholdIncome] =useState(1000);
     const [clientNameState,setClientName] = useState();
+    const [expectedIIState,setExpectedII] =useState();
 
     const validationSchema = yup.object({
         currentAge: yup
@@ -77,9 +80,11 @@ function FormComponent({setFormData})
           retirementAge: 75,
           currentSavings: 1000,
           expectedROR: 6,
-          estimatedRE: 500,
-          retirementSR: 500,
+          estimatedRE: 50,
+          retirementSR: 50,
+          annualHouseholdIncome: 1000,
           clientName:'',
+          expectedII:0,
         },
         validationSchema:validationSchema,
         onSubmit: (values) => {
@@ -90,35 +95,45 @@ function FormComponent({setFormData})
           setExpectedROR(values.expectedRateOfReturn)
           setEstimatedRE(values.estimatedRetirementExpenses)
           setRetirementSR(values.retirementSavingsRequired)
-          setClientName(values.clientName)
+          setAnnualHouseholdIncome(values.annualHouseholdIncome)
+          setClientName(values.clientName) 
+          setExpectedII(values.expectedII)
         }});    
 
         const handleSliderChange = (event, newValue) => {
             switch(event.target.childNodes[0].name){
               case "currentAgeSlider":
-                    setCurrentAge(newValue);
+                    setCurrentAge(parseInt(newValue));
                     formik.values.currentAge= newValue;
                     break;
                 case "retirementAgeSlider":
-                    setRetirementAge(newValue);
+                    setRetirementAge(parseInt(newValue));
                     formik.values.retirementAge= newValue;
                     break;
                 case "currentSavingsSlider":
-                    setCurrentSavings(newValue);
+                    setCurrentSavings(parseInt(newValue));
                     formik.values.currentSavings= newValue;
                     break;
                 case "expectedRORSlider":
-                  setExpectedROR(newValue);
+                  setExpectedROR(parseFloat(newValue));
                   formik.values.expectedROR= newValue;
                   break;
                 case "estimatedRESlider":
-                  setEstimatedRE(newValue);
+                  setEstimatedRE(parseFloat(newValue));
                   formik.values.estimatedRE= newValue;
                   break;
                 case "retirementSRSlider":
-                  setRetirementSR(newValue);
+                  setRetirementSR(parseFloat(newValue));
                   formik.values.retirementSR= newValue;
                   break;   
+                case "annualHouseholdIncomeSlider":
+                  setAnnualHouseholdIncome(parseInt(newValue));
+                  formik.values.annualHouseholdIncome =newValue;  
+                  break;
+                case "expectedIISlider":
+                  setExpectedII(parseFloat(newValue));
+                  formik.values.expectedII =newValue;  
+                  break;
             }
         };
         
@@ -211,12 +226,65 @@ function FormComponent({setFormData})
                   onChangeCommitted={handleSliderChange}
                 /> 
                 </Grid>
+
+                <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  id="annualHouseholdIncome"
+                  name="annualHouseholdIncome"
+                  label="Annual Household Income ($)"
+                  value={formik.values.annualHouseholdIncome}
+                  onChange={formik.handleChange}
+                  InputLabelProps={{
+                      shrink: true,
+                    }}             
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                <Slider
+                  value={annualHouseholdIncomeState}
+                  name="annualHouseholdIncomeSlider"
+                  valueLabelDisplay="auto"
+                  step={500}
+                  marks
+                  min={100}
+                  max={100000}
+                  onChangeCommitted={handleSliderChange}
+                /> 
+                </Grid>
+
+                <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  id="expectedII"
+                  name="expectedII"
+                  label="Expected Income Increase (%)"
+                  value={formik.values.expectedII}
+                  onChange={formik.handleChange}
+                  InputLabelProps={{
+                      shrink: true,
+                    }}             
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                <Slider
+                  value={expectedIIState}
+                  name="expectedIISlider"
+                  valueLabelDisplay="auto"
+                  step={500}
+                  marks
+                  min={100}
+                  max={100000}
+                  onChangeCommitted={handleSliderChange}
+                /> 
+                </Grid>
+
                 <Grid item xs={6}>
                 <TextField
                   fullWidth
                   id="currentSavings"
                   name="currentSavings"
-                  label="Current Savings"
+                  label="Current Savings ($)"
                   value={formik.values.currentSavings}
                   onChange={formik.handleChange}
                   InputLabelProps={{
@@ -267,7 +335,7 @@ function FormComponent({setFormData})
                   fullWidth
                   id="estimatedRE"
                   name="estimatedRE"
-                  label="Estimated Retirement Expenses"
+                  label="Estimated Retirement Expenses ()"
                   value={formik.values.estimatedRE}
                   onChange={formik.handleChange}
                   InputLabelProps={{
@@ -293,7 +361,7 @@ function FormComponent({setFormData})
                   fullWidth
                   id="retirementSR"
                   name="retirementSR"
-                  label="Retirement Savings Required"
+                  label="Retirement Savings Required (%)"
                   value={formik.values.retirementSR}
                   onChange={formik.handleChange}
                   InputLabelProps={{
@@ -306,10 +374,10 @@ function FormComponent({setFormData})
                   value={retirementSRState}
                   name="retirementSRSlider"
                   valueLabelDisplay="auto"
-                  step={500}
+                  step={1}
                   marks
-                  min={500}
-                  max={100000}
+                  min={0}
+                  max={100}
                   onChangeCommitted={handleSliderChange}
                 /> 
                 </Grid>

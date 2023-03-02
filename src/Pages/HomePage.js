@@ -5,13 +5,11 @@ import { useState } from "react";
 
 function Homepage()
 {   const [formData,setFormData] = useState({});
-    
 
     return(
         <div>
             <h1>RETIREMENT CALCULATOR</h1>
             {/* <Navbar> */}
-            <h1>{formData.retirementAge}</h1>
             <FormComponent setFormData={setFormData}></FormComponent>
             <br></br>
             {/* <ChartComponent></ChartComponent> */}

@@ -9,52 +9,14 @@ import Paper from '@mui/material/Paper';
 import {Container} from '@mui/material';
 
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0)
-];
-
 export default function TableComponent({data}) {
 
+  console.log("inside table component;");
+  console.log(data);
   //use data to calutate form ma dekhaune data
   return (
-    <Container>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Age</TableCell>
-              <TableCell align="right">Beginning Retirement Balance</TableCell>
-              <TableCell align="right">Investment Growth</TableCell>
-              <TableCell align="right">Contribution Of Income</TableCell>
-              <TableCell align="right">Income During Retirement</TableCell>
-              <TableCell align="right">Retirement Account With Drawals</TableCell>
-              <TableCell align="right">Ending Retirement Balance</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+    <div>
+
+    </div>
   );
 }
