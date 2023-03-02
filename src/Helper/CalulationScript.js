@@ -8,60 +8,46 @@ console.log(data);
   const retirementAge = parseInt(data.retirementAge);
 
   const annualHouseholdIncome=parseInt(data.annualHouseholdIncome);
-  const currentSavings = parseInt(data.currentSavings);
-  const estimatedRE = parseFloat(data.estimatedRE);
-  const expectedROR = parseFloat(data.expectedROR);
-  const expectedII = parseFloat(data.expectedII);
-  const retirementSR = parseFloat(data.retirementSR);
-
+  const currentSavings = parseInt(data.currentSavings); //
+  const estimatedRE = parseFloat(data.estimatedRE); // required expences (monhtly exp during retirement)
+  const expectedROR = parseFloat(data.expectedROR); // rate of return assuming its invested
+  // const expectedII = parseFloat(data.expectedII); //increase in income
+  const retirementSR = parseFloat(data.retirementSR); // percent of income that will go to retirement fund
   const yearsToRetirement = retirementAge - currentAge;
-// teting here, incomeDuringRetirement giving issue, needt o fixed decimal  value
-  let amt = annualHouseholdIncome;
-  let incomeDuringRetirement=annualHouseholdIncome;
-  let lastYearIncome=annualHouseholdIncome;
-  for(var k=0; k<yearsToRetirement; k++)
-  {
-    amt = Math.round(amt + (0.02*amt),2);
-    lastYearIncome =(annualHouseholdIncome * Math.pow(1 + expectedII, yearsToRetirement).toFixed(2));
+  const life_expectency = 102;
+  let newBalances = {};
+  let n = 12;
 
+  let total_savings = (yearsToRetirement*(annualHouseholdIncome*(retirementSR/100)))+currentSavings;
+  const amount_to_make = currentSavings - (life_expectency*estimatedRE);
+
+  //before retirement
+
+  //during retirement 
+  for(var i = retirementAge; i<=life_expectency;i++)
+  {
+    //investment return
+     var interest = (total_savings*1*expectedROR)/100;
+     total_savings = total_savings + interest;
+     total_savings = total_savings - estimatedRE;
+     //remaining savings
   }
 
-  console.log(amt,",",lastYearIncome);
-  
-  //  const yearsToRetirement = retirementAge - currentAge;
-    const annualSavings = currentSavings * expectedROR;
-    const totalSavings = currentSavings + annualSavings * yearsToRetirement;
-    let balance = totalSavings;
+  if(total_savings>0)
+  {
+    console.log("YAY");
+  }
+  else
+  {
+    console.log("NAY");
+  }
 
-    const newBalances = [];
-    for (let i = 0; i <= yearsToRetirement; i++) {
-      const age = currentAge + i;
+  // total_savings ko coumpounded amount
+  // counpound_interest = Math.pow(p(1+r/n),t*n);
+  // let compound_interest= Math.pow((total_savings*(1+(expectedROR/100))),yearsToRetirement);
+  // console.log(compound_interest);
 
-      const investmentGrowth = balance * estimatedRE;
-      const contributionOfIncome = annualHouseholdIncome * retirementSR;
-
-      const incomeDuringRetirement = i === 0 ? 0 : incomeDuringRetirement * (1 + expectedII);
-      const retirementAccountWithdrawals = i === 0 ? 0 : incomeDuringRetirement / retirementSR;
-
-      const beginningRetirementBal = i === 0 ? balance : balance - contributionOfIncome + incomeDuringRetirement;
-      const endingRetirementBalance = beginningRetirementBal + investmentGrowth - retirementAccountWithdrawals;
-
-      newBalances.push({
-        age,
-        beginningRetirementBal,
-        investmentGrowth,
-        contributionOfIncome,
-        incomeDuringRetirement,
-        retirementAccountWithdrawals,
-        endingRetirementBalance,
-      });
-      balance = endingRetirementBalance;
-    }
-  
-    // newBalances = {
-    //   name:"AAA",
-    //   age: 45
-    // };
+// teting here, incomeDuringRetirement giving issue, needt o fixed decimal  value
   return newBalances;
 }
 
