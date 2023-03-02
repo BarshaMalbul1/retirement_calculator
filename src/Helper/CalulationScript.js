@@ -21,7 +21,22 @@ console.log(data);
   let total_savings = (yearsToRetirement*(annualHouseholdIncome*(retirementSR/100)))+currentSavings;
   const amount_to_make = currentSavings - (life_expectency*estimatedRE);
 
+
+
   //before retirement
+  for(var i =currentAge;i<retirementAge;i++)
+  {
+      var interest = (total_savings*1*expectedROR)/100;
+      total_savings = total_savings + interest;
+      total_savings = total_savings + (annualHouseholdIncome*(retirementSR/100));
+     var x =         annualHouseholdIncome*(retirementSR/100);
+      newBalances.push({
+       interest,
+       total_savings,
+       annualHouseholdIncome,
+       x
+      });    
+  }
 
   //during retirement 
   for(var i = retirementAge; i<=life_expectency;i++)
@@ -31,23 +46,14 @@ console.log(data);
      total_savings = total_savings + interest;
      total_savings = total_savings - estimatedRE;
      //remaining savings
+     let zero = 0;
+     newBalances.push({
+       interest,
+       total_savings,
+       zero,
+       zero
+    });    
   }
-
-  if(total_savings>0)
-  {
-    console.log("YAY");
-  }
-  else
-  {
-    console.log("NAY");
-  }
-
-  // total_savings ko coumpounded amount
-  // counpound_interest = Math.pow(p(1+r/n),t*n);
-  // let compound_interest= Math.pow((total_savings*(1+(expectedROR/100))),yearsToRetirement);
-  // console.log(compound_interest);
-
-// teting here, incomeDuringRetirement giving issue, needt o fixed decimal  value
   return newBalances;
 }
 
