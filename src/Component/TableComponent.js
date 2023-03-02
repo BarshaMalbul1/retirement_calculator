@@ -17,7 +17,9 @@ const rows = [
   createData('Frozen yoghurt', 159, 6.0, 24, 4.0)
 ];
 
-export default function TableComponent() {
+export default function TableComponent({data}) {
+
+  //use data to calutate form ma dekhaune data
   return (
     <Container>
       <TableContainer component={Paper}>

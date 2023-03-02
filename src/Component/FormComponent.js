@@ -8,7 +8,7 @@ import {Container} from '@mui/material';
 import {Button} from '@mui/material';
 import CalulationScript from '../Helper/CalulationScript';
 
-function FormComponent(setFormData)
+function FormComponent({setFormData})
 {
     const [currentAgeState,setCurrentAge] = useState(25);
     const [retirementAgeState,setRetirementAge] = useState(75);
@@ -83,7 +83,7 @@ function FormComponent(setFormData)
         },
         validationSchema:validationSchema,
         onSubmit: (values) => {
-          setFormData(values);
+          setFormData(CalulationScript(values));
           setCurrentAge(values.currentAge)
           setRetirementAge(values.retirementAge)
           setCurrentSavings(values.currentSavings)
