@@ -164,6 +164,7 @@ function FormComponent({setFormData})
     return (
         <div>
           <Container>
+            <h1>Please fill the form</h1>
             <form onSubmit={formik.handleSubmit}>
               <TextField
                 fullWidth
@@ -383,7 +384,7 @@ function FormComponent({setFormData})
                 </Grid>
               </Grid>  
               <br></br>
-              <Button color="primary" margin="2px" variant="contained" fullWidth type="submit">Calculate</Button>
+              <Button margin="2px" variant="contained" fullWidth color="secondary" type="submit">Calculate</Button>
             </form>  
           </Container>
         </div>

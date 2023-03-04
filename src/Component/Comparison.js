@@ -6,22 +6,19 @@ import { useState } from "react";
 import Header from "../Component/Header";
 import { Container } from "@material-ui/core";
 
-function Homepage()
+function Comparison()
 {   const [formData,setFormData] = useState({});
 
     return(
-        <Container>
-            <Header></Header>
-            {/* <Navbar> */}
-            <br></br>
+        <div>
             <FormComponent setFormData={setFormData}></FormComponent>
             <br></br>
             {/* <ChartComponent></ChartComponent> */}
             <br></br>
             <summaryReport data={formData}></summaryReport>
             <TableComponent data={formData}></TableComponent>
-        </Container>
+        </div>
     )
 }
 
-export default Homepage;
+export default Comparison;
