@@ -15,7 +15,6 @@ export default function TableComponent({data}) {
       <TableHead>
         <TableRow>
           <TableCell align="center">Age</TableCell>
-          <TableCell align="center">Years till retirement</TableCell>
           <TableCell align="center">Annual income</TableCell>
           <TableCell align="center">Current balance</TableCell>
           <TableCell align="center">Investment gains</TableCell>
@@ -31,8 +30,7 @@ export default function TableComponent({data}) {
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell align="center">{row.age}</TableCell>
-            <TableCell align="center">{row.years_to_retire}</TableCell>
-            <TableCell align="center">
+           <TableCell align="center">
               {row.annualHouseholdIncome}
             </TableCell>
             <TableCell align="center">{row.current_retirement_fund_balance}</TableCell>

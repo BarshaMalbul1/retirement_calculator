@@ -59,7 +59,6 @@ function CalulationScript(data){
   for(var age = retirementAge+1; age<=102; age++)
   {
     var investment_growth = (expectedROR/100)*currentSavings;
-    var income_contributed =  -1*estimatedRE;
     var total_addition_to_retirement_fund = investment_growth + income_contributed;
 
     rows.push(
@@ -71,7 +70,7 @@ function CalulationScript(data){
         round(investment_growth), // how much gains were made on investment
         0, // how much money was contributed to fund
         round(total_addition_to_retirement_fund),//retirement balance after addition
-        income_contributed // yearly expenses from retirement fund
+        estimatedRE // yearly expenses from retirement fund
       )
     );
     
