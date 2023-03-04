@@ -88,7 +88,7 @@ function FormComponent({setFormData})
         },
         validationSchema:validationSchema,
         onSubmit: (values) => {
-          setFormData(CalulationScript(values));
+          setFormData({form_input_values:values,computed:CalulationScript(values)});
           setCurrentAge(values.currentAge)
           setRetirementAge(values.retirementAge)
           setCurrentSavings(values.currentSavings)

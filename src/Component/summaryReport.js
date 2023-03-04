@@ -1,6 +1,6 @@
 
 
-function summaryReport({data}){
+function SummaryReport({data}){
     console.log("summary",data);
     return (
        
@@ -20,4 +20,4 @@ function summaryReport({data}){
         </div>  
     );
 }
-export default summaryReport;
+export default SummaryReport;
