@@ -1,13 +1,17 @@
 import React from "react";
+import { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import { FormLabel } from "@mui/material";
 
 function SummaryReport({data}){
     let input = data.form_input_values;
     const [checked, setChecked] = React.useState(false);
-    const containerRef = React.useRef(null);
     var data = {
       "Client Name":  input? input.clientName :"Johny",
       "Current Age:": input?input.currentAge:"",           
@@ -20,23 +24,40 @@ function SummaryReport({data}){
       "Retirement Savings Rate: " :input?input.retirementSR : ""           
     };
 
-    const handleChange = () => {
-      setChecked((prev) => !prev);
+    const switchHandler = (event) => {
+      setChecked(event.target.checked);
     };
+  
+    var table = "";
+    if(checked)
+    {
+      table = 
+      <TableContainer>
+      <Table>
+      {Object.keys(data).map((key) => (
+          <TableBody>
+              <TableCell>{key}</TableCell>
+              <TableCell>{data[key]}</TableCell>
+          </TableBody>
+      ))}
+
+      </Table>
+    </TableContainer>
+    ;
+    }
 
     return (
       <div>
-        <TableContainer>
-          <Table>
-          {Object.keys(data).map((key) => (
-              <TableBody>
-                  <TableCell>{key}</TableCell>
-                  <TableCell>{data[key]}</TableCell>
-              </TableBody>
-          ))}
+        <FormGroup>
+          <FormControlLabel
+          style={{ paddingLeft: '20px' }}
+            value="start"
+            control={<Switch checked={checked} onChange={switchHandler}/>}
+            label="Start"
+            />
+          {table}
 
-          </Table>
-        </TableContainer>
+        </FormGroup>
       </div>
     );
 }
