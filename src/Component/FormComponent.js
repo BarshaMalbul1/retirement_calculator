@@ -173,6 +173,7 @@ function FormComponent({setFormData})
                 name="clientName"
                 label="Enter Your Name"
                 value={formik.values.clientName}
+                onChange={formik.handleChange}
                 helperText={formik.touched.clientName && formik.errors.clientName}
               />
 
