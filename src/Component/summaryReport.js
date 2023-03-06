@@ -7,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { FormLabel } from "@mui/material";
 
 function SummaryReport({data}){
     let input = data.form_input_values;
@@ -53,7 +52,7 @@ function SummaryReport({data}){
           style={{ paddingLeft: '20px' }}
             value="start"
             control={<Switch checked={checked} onChange={switchHandler}/>}
-            label="Start"
+            label="Show summary"
             />
           {table}
 
