@@ -77,17 +77,18 @@ function FormComponent({setFormData})
       const formik = useFormik({
         initialValues: {
           currentAge:25,
-          retirementAge: 75,
-          currentSavings: 1000,
-          expectedROR: 6,
-          estimatedRE: 50,
-          retirementSR: 50,
-          annualHouseholdIncome: 1000,
+          retirementAge: 65,
+          currentSavings: 22000,
+          expectedROR: 7,
+          estimatedRE: 151532,
+          retirementSR: 35,
+          annualHouseholdIncome: 100000,
           clientName:'',
-          expectedII:0,
+          expectedII:2,
         },
         validationSchema:validationSchema,
         onSubmit: (values) => {
+          console.log(values)
           setFormData({form_input_values:values,computed:CalulationScript(values)});
           setCurrentAge(values.currentAge)
           setRetirementAge(values.retirementAge)
@@ -171,6 +172,7 @@ function FormComponent({setFormData})
                 id="clientName"
                 name="clientName"
                 label="Enter Your Name"
+                value={formik.values.clientName}
                 helperText={formik.touched.clientName && formik.errors.clientName}
               />
 

@@ -31,7 +31,7 @@ function CalulationScript(data){
   let retirementSR = parseFloat(data.retirementSR); // percent of income that will go to retirement fund  
   let rows = [];
   //before retirement
-  for(var age = currentAge; age<=retirementAge; age++)
+  for(var age = currentAge+1; age<retirementAge; age++)
   {
     var investment_growth = (expectedROR/100)*currentSavings;
     var income_contributed =  (retirementSR/100)*annualHouseholdIncome;
@@ -45,7 +45,7 @@ function CalulationScript(data){
         round(currentSavings), // current balance in retirement account
         round(investment_growth), // how much gains were made on investment
         round(income_contributed), // how much money was contributed to fund
-        round(total_addition_to_retirement_fund),//retirement balance after addition
+        round(total_addition_to_retirement_fund+currentSavings),//retirement balance after addition
         0 // yearly expenses from retirement fund
       )
     );
@@ -56,10 +56,10 @@ function CalulationScript(data){
   
 
   //todo after retirement
-  for(var age = retirementAge+1; age<=102; age++)
+  for(var age = retirementAge; age<=102; age++) 
   {
     var investment_growth = (expectedROR/100)*currentSavings;
-    var total_addition_to_retirement_fund = investment_growth + income_contributed;
+    var total_addition_to_retirement_fund = investment_growth + currentSavings-estimatedRE;
 
     rows.push(
       new createData( 
@@ -73,7 +73,7 @@ function CalulationScript(data){
         estimatedRE // yearly expenses from retirement fund
       )
     );
-    
+    currentSavings = total_addition_to_retirement_fund; 
   }
   return rows;
 }

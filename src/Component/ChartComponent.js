@@ -1,211 +1,93 @@
-// /* Imports */
+/* Imports */
 
 
-// import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
-// /* Chart code */
-// // Create root element
-// // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-// let root = am5.Root.new("chartdiv");
 
-// // Set themes
-// // https://www.amcharts.com/docs/v5/concepts/themes/
+function ChartComponent({data}){
+//     let root = am5.Root.new("chartdiv");
 // root.setThemes([
 //   am5themes_Animated.new(root)
 // ]);
-
-// // Create chart
-// // https://www.amcharts.com/docs/v5/charts/xy-chart/
-// let chart = root.container.children.push(
-//   am5xy.XYChart.new(root, {
-//     panX: true,
-//     panY: true,
-//     wheelX: "panX",
-//     wheelY: "zoomX",
-//     layout: root.verticalLayout,
+// let chart = root.container.children.push(am5xy.XYChart.new(root, {
+//   panX: true,
+//   panY: true,
+//   wheelX: "panX",
+//   wheelY: "zoomX",
 //   pinchZoomX:true
-//   })
-// );
-
-// // Add cursor
-// // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-// let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
-//   behavior: "none"
 // }));
+
+// chart.get("colors").set("step", 3);
+
+// let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
 // cursor.lineY.set("visible", false);
 
-// // The data
-// let data = [
-//   {
-//     year: "1930",
-//     italy: 1,
-//     germany: 5,
-//     uk: 3
+// let xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+//   maxDeviation: 0.3,
+//   baseInterval: {
+//     timeUnit: "day",
+//     count: 1
 //   },
-//   {
-//     year: "1934",
-//     italy: 1,
-//     germany: 2,
-//     uk: 6
-//   },
-//   {
-//     year: "1938",
-//     italy: 2,
-//     germany: 3,
-//     uk: 1
-//   },
-//   {
-//     year: "1950",
-//     italy: 3,
-//     germany: 4,
-//     uk: 1
-//   },
-//   {
-//     year: "1954",
-//     italy: 5,
-//     germany: 1,
-//     uk: 2
-//   },
-//   {
-//     year: "1958",
-//     italy: 3,
-//     germany: 2,
-//     uk: 1
-//   },
-//   {
-//     year: "1962",
-//     italy: 1,
-//     germany: 2,
-//     uk: 3
-//   },
-//   {
-//     year: "1966",
-//     italy: 2,
-//     germany: 1,
-//     uk: 5
-//   },
-//   {
-//     year: "1970",
-//     italy: 3,
-//     germany: 5,
-//     uk: 2
-//   },
-//   {
-//     year: "1974",
-//     italy: 4,
-//     germany: 3,
-//     uk: 6
-//   },
-//   {
-//     year: "1978",
-//     italy: 1,
-//     germany: 2,
-//     uk: 4
-//   }
-// ];
-
-// // Create axes
-// // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-// let xRenderer = am5xy.AxisRendererX.new(root, {});
-// xRenderer.grid.template.set("location", 0.5);
-// xRenderer.labels.template.setAll({
-//   location: 0.5,
-//   multiLocation: 0.5
-// });
-
-// let xAxis = chart.xAxes.push(
-//   am5xy.CategoryAxis.new(root, {
-//     categoryField: "year",
-//     renderer: xRenderer,
-//     tooltip: am5.Tooltip.new(root, {})
-//   })
-// );
-
-// xAxis.data.setAll(data);
-
-// let yAxis = chart.yAxes.push(
-//   am5xy.ValueAxis.new(root, {
-//     maxPrecision: 0,
-//     renderer: am5xy.AxisRendererY.new(root, {
-//       inversed: true
-//     })
-//   })
-// );
-
-// // Add series
-// // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-
-// function createSeries(name, field) {
-//   let series = chart.series.push(
-//     am5xy.LineSeries.new(root, {
-//       name: name,
-//       xAxis: xAxis,
-//       yAxis: yAxis,
-//       valueYField: field,
-//       categoryXField: "year",
-//       tooltip: am5.Tooltip.new(root, {
-//         pointerOrientation: "horizontal",
-//         labelText: "[bold]{name}[/]\n{categoryX}: {valueY}"
-//       })
-//     })
-//   );
-
-
-//   series.bullets.push(function() {
-//     return am5.Bullet.new(root, {
-//       sprite: am5.Circle.new(root, {
-//         radius: 5,
-//         fill: series.get("fill")
-//       })
-//     });
-//   });
-
-//   // create hover state for series and for mainContainer, so that when series is hovered,
-//   // the state would be passed down to the strokes which are in mainContainer.
-//   series.set("setStateOnChildren", true);
-//   series.states.create("hover", {});
-
-//   series.mainContainer.set("setStateOnChildren", true);
-//   series.mainContainer.states.create("hover", {});
-
-//   series.strokes.template.states.create("hover", {
-//     strokeWidth: 4
-//   });
-
-//   series.data.setAll(data);
-//   series.appear(1000);
-// }
-
-// createSeries("Italy", "italy");
-// createSeries("Germany", "germany");
-// createSeries("UK", "uk");
-
-// // Add scrollbar
-// // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
-// chart.set("scrollbarX", am5.Scrollbar.new(root, {
-//   orientation: "horizontal",
-//   marginBottom: 20
+//   renderer: am5xy.AxisRendererX.new(root, {}),
+//   tooltip: am5.Tooltip.new(root, {})
 // }));
 
-// let legend = chart.children.push(
-//   am5.Legend.new(root, {
-//     centerX: am5.p50,
-//     x: am5.p50
+// let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+//   maxDeviation: 0.3,
+//   renderer: am5xy.AxisRendererY.new(root, {})
+// }));
+
+// let series = chart.series.push(am5xy.LineSeries.new(root, {
+//   name: "Series 1",
+//   xAxis: xAxis,
+//   yAxis: yAxis,
+//   valueYField: "value1",
+//   valueXField: "date",
+//   tooltip: am5.Tooltip.new(root, {
+//     labelText: "{valueX}: {valueY}\n{previousDate}: {value2}"
 //   })
-// );
+// }));
 
-// // Make series change state when legend item is hovered
-// legend.itemContainers.template.states.create("hover", {});
-
-// legend.itemContainers.template.events.on("pointerover", function(e) {
-//   e.target.dataItem.dataContext.hover();
-// });
-// legend.itemContainers.template.events.on("pointerout", function(e) {
-//   e.target.dataItem.dataContext.unhover();
+// series.strokes.template.setAll({
+//   strokeWidth: 2
 // });
 
-// legend.data.setAll(chart.series.values);
+// series.get("tooltip").get("background").set("fillOpacity", 0.5);
 
-// // Make stuff animate on load
-// // https://www.amcharts.com/docs/v5/concepts/animations/
+// let series2 = chart.series.push(am5xy.LineSeries.new(root, {
+//   name: "Series 2",
+//   xAxis: xAxis,
+//   yAxis: yAxis,
+//   valueYField: "value2",
+//   valueXField: "date"
+// }));
+// series2.strokes.template.setAll({
+//   strokeDasharray: [2, 2],
+//   strokeWidth: 2
+// });
+
+// root.dateFormatter.setAll({
+//   dateFormat: "yyyy-MM-dd",
+//   dateFields: ["valueX"]
+// });
+
+// let data = [{
+//   date: new Date(2019, 5, 12).getTime(),
+//   value1: 50,
+//   value2: 48,
+//   previousDate: new Date(2019, 5, 5)
+// }]
+
+// series.data.setAll(data);
+// series2.data.setAll(data);
+
+// series.appear(1000);
+// series2.appear(1000);
 // chart.appear(1000, 100);
+
+// amCharts
+return( 
+    console.log({data})
+);
+}
+export default ChartComponent;

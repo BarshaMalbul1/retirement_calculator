@@ -13,10 +13,13 @@ function Homepage()
         <Container>
             <Header></Header>
             {/* <Navbar> */}
+            {/* console.log({formData.computed}); */}
             <br></br>
             <FormComponent setFormData={setFormData}></FormComponent>
             <br></br>
-            {/* <ChartComponent></ChartComponent> */}
+            <SummaryReport data={formData??[]}></SummaryReport>
+           
+            {/* <ChartComponent data={formData.computed??[]}></ChartComponent> */}
             <br></br>
             {/* <SummaryReport data={formData}></SummaryReport> */}
             <TableComponent data={formData.computed??[]}></TableComponent>

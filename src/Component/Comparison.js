@@ -1,7 +1,7 @@
 import ChartComponent from "../Component/ChartComponent";
 import FormComponent from "../Component/FormComponent";
 import TableComponent from "../Component/TableComponent";
-import SummaryReport from "../Component/SummaryReport";
+import SummaryReport from "./SummaryReport";
 import { useState } from "react";
 import Header from "../Component/Header";
 import { Container } from "@material-ui/core";
