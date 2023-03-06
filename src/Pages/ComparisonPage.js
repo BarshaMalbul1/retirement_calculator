@@ -4,11 +4,9 @@ import { Container } from "@material-ui/core";
 import Comparison from "../Component/Comparison";
 import {Grid} from "@material-ui/core";
 function ComparisonPage()
-{   const [formData,setFormData] = useState({});
-
-    return(
+{
+   return(
         <Container>
-            <Header></Header>
             <div className='rowC'>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, m:5}}>
                     <Grid item xs={6}>
